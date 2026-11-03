@@ -1,0 +1,28 @@
+
+name: Build MOHAMMAD SAM GAME APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build APK
+        uses: ArtemSBulgakov/buildozer-action@v1
+        id: buildozer
+        with:
+          workdir: .
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: MOHAMMAD-SAM-GAME-APK
+          path: ${{ steps.buildozer.outputs.filename }}
